@@ -508,6 +508,9 @@ class PrinterConfig:
         pending_include = None
         pending_include_vars = dict(include_vars or {})
         for line in lines:
+            # ConfigParser also accepts semicolon-prefixed comment lines.
+            if line.lstrip().startswith(";"):
+                continue
             # Strip trailing comment
             pos = line.find("#")
             if pos >= 0:

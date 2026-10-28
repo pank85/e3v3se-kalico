@@ -43,6 +43,16 @@ def test_include_undefined_var(
         _load(config_root)
 
 
+def test_semicolon_comment_after_include(tmp_path):
+    (tmp_path / "printer.cfg").write_text(
+        "[include child.cfg]\n;[include disabled.cfg] ; comment\n[main]\nkey: value\n"
+    )
+    (tmp_path / "child.cfg").write_text("[child]\nkey: value\n")
+    config = _load(tmp_path)
+    assert config.getsection("child").get("key") == "value"
+    assert config.getsection("main").get("key") == "value"
+
+
 def test_include_invalid_var_line(
     config_root: typing.Annotated[
         pathlib.Path, "test_configs/include_vars_invalid"
