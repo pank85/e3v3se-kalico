@@ -1,6 +1,6 @@
 # Kalico for Ender 3 V3 SE with Display Support
 
-A fork of [Kalico](https://github.com/KalicoCrew/kalico) with integrated support for the stock Creality Ender 3 V3 SE display. This enables full use of the original touchscreen without any hardware modifications.
+A fork of [Kalico](https://github.com/KalicoCrew/kalico) with integrated support for the stock Creality Ender 3 V3 SE display. This enables full use of the original touchscreen without any hardware modifications. See the [upstream Kalico README](docs/Kalico-Upstream-README.md) for upstream features and installation information.
 
 ## Features
 

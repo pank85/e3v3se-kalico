@@ -6,15 +6,17 @@
 from __future__ import annotations
 
 from collections.abc import Callable
-from typing import Protocol, TypedDict, Union
+from typing import Protocol, TypedDict
 
 from klippy.mcu import MCU
 
 
 class BulkAdcData(TypedDict):
-    """Dictionary returned by sensors containing raw sensor data"""
+    """Dictionary returned by sensors containing raw sensor data.
+    Errors and overflows are the number encountered while producing this batch.
+    """
 
-    data: Union[list[int], list[None]]
+    data: list[tuple[float, ...]]
     errors: int
     overflows: int
 
@@ -38,6 +40,10 @@ class BulkAdcSensor(Protocol):
 
     def get_range(self) -> tuple[int, int]:
         """Return the range of the sensor as (min, max)"""
+        ...
+
+    def get_channel_count(self) -> int:
+        """Return number of ADC channels emitted per sample"""
         ...
 
     def add_client(self, callback: BulkAdcDataCallback):

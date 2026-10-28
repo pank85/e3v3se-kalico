@@ -187,6 +187,9 @@ class DockableProbe:
         self.sample_retract_dist = config.getfloat(
             "sample_retract_dist", 2.0, above=0.0
         )
+        self.detach_dockable_before_z_home = config.getboolean(
+            "detach_dockable_before_z_home", False
+        )
 
         # Positions (approach, detach, etc)
         self.approach_position = self._parse_coord(config, "approach_position")
@@ -849,11 +852,11 @@ class DockableProbe:
 
         tpos = self.toolhead.get_position()
         self.toolhead.set_position(
-            [tpos[0], tpos[1], 0.0, tpos[3]], homing_axes=[2]
+            [tpos[0], tpos[1], 0.0, tpos[3]], homing_axes="z"
         )
         self.toolhead.manual_move([None, None, self.z_hop], self.lift_speed)
         kin = self.toolhead.get_kinematics()
-        kin.clear_homing_state([2])
+        kin.clear_homing_state("z")
         self.last_z = self.toolhead.get_position()[2]
 
     #######################################################################
@@ -942,5 +945,5 @@ class DockableProbe:
 
 def load_config(config):
     msp = DockableProbe(config)
-    config.get_printer().add_object("probe", probe.PrinterProbe(config, msp))
+    probe.PrinterProbe(config, msp)
     return msp
