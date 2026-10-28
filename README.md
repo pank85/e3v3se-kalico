@@ -134,6 +134,7 @@ language: english
 |--------|---------|-------------|
 | `language` | `english` | Display language (chinese, english, german, russian, french, turkish, spanish, italian, portuguese, japanese) |
 | `logging` | `False` | Enable debug logging for the display module |
+| `update_interval` | `1.0` | Display status refresh interval in seconds (minimum 0.5) |
 
 ### Custom Macro Buttons
 

@@ -584,7 +584,7 @@ class E3v3seDisplay:
         self.checkkey = self.MainMenu
         self.pd = PrinterData(config)
 
-        self._update_interval = 1
+        self._update_interval = config.getfloat("update_interval", 1.0, minval=0.5)
         self._update_timer = self.reactor.register_timer(self.EachMomentUpdate)
 
     def key_event(self, key, eventtime):
