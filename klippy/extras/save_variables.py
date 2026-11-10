@@ -59,9 +59,17 @@ class SaveVariables:
         for name, val in sorted(newvars.items()):
             varfile.set("Variables", name, repr(val))
         try:
-            f = open(self.filename, "w")
-            varfile.write(f)
-            f.close()
+            tmpname = self.filename + ".tmp"
+            with open(tmpname, "w") as f:
+                varfile.write(f)
+                f.flush()
+                os.fsync(f.fileno())
+            os.replace(tmpname, self.filename)
+            dfd = os.open(os.path.dirname(self.filename) or ".", os.O_DIRECTORY)
+            try:
+                os.fsync(dfd)
+            finally:
+                os.close(dfd)
         except:
             msg = "Unable to save variable"
             logging.exception(msg)
