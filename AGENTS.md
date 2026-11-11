@@ -1,5 +1,7 @@
-# Project workflow
+# Agent instruction index
 
-- Do all development work on `develop`.
-- Merge changes into `main` only after they have been deployed to the printer and verified to work correctly there.
-- Never interrupt an active or paused print for deployment; preserve a rollback path and existing printer-specific configuration.
+Paths below are relative to the repository root. Read the always-read instructions before working, then open only the topic files relevant to the task. More-specific `AGENTS.md` files still apply. When adding or changing guidance in `.ai/`, update this index (and the documentation index when applicable).
+
+## Always read
+
+- [Project workflow](.ai/instructions/01-introduction.md) — project-wide instructions.
