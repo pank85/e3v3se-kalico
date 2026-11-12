@@ -155,6 +155,7 @@ class VirtualSD:
             self.current_file.close()
             self.current_file = None
             self.print_stats.note_cancel()
+            self.printer.send_event("virtual_sdcard:cancel_file")
         self.file_position = self.file_size = 0
 
     # G-Code commands
@@ -301,6 +302,7 @@ class VirtualSD:
                     self.current_file.close()
                     self.current_file = None
                     logging.info("Finished SD card print")
+                    self.printer.send_event("virtual_sdcard:complete_file")
                     self.gcode.respond_raw("Done printing file")
                     break
                 lines = data.split("\n")
